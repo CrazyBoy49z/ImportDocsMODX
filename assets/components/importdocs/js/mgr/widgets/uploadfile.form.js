@@ -125,7 +125,12 @@ Ext.extend(ImportDocs.form.Panel, MODx.FormPanel, {
                 var response = action.response.responseText;
 
                 response = JSON.parse(response);
-                console.log(response.data);
+                response.data = response.data.map(function(record){
+                    var div = document.createElement('div');
+                    var text = document.createTextNode(record);
+                    div.appendChild(text);
+                    return div;
+                });
 
                 var win = new Ext.Window({
                     title: _('im.log'),
@@ -133,12 +138,9 @@ Ext.extend(ImportDocs.form.Panel, MODx.FormPanel, {
                     width: 750,
                     height: 500,
                     preventBodyReset: true,
-                    html: JSON.stringify(response.data)
+                    contentEl: response.data
                 });
                 win.show();
-
-                //Ext.MessageBox.alert(_('im.docs_title_alert_update'), _('im.docs_msg_success_update'));
-
             },
             failure: function (form, responce) {
                 Ext.MessageBox.alert(_('im.docs_title_alert_update'), _('im.docs_msg_error_update'));

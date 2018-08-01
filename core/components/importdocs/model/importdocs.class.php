@@ -5,16 +5,15 @@ class ImportDocs
     /** @var modX $modx */
     public $modx;
 
-
     /**
      * @param modX $modx
      * @param array $config
      */
-    function __construct(modX &$modx, array $config = [])
+    function __construct(modX &$modx, array $config = [], array $rows = [], array $rowHeaders = [])
     {
         $this->modx =& $modx;
-        $corePath = MODX_CORE_PATH . 'components/importdocs/';
-        $assetsUrl = MODX_ASSETS_URL . 'components/importdocs/';
+        $corePath = $this->modx->getOption('importdocs_core_path', null);
+        $assetsUrl = $this->modx->getOption('importdocs_assets_path', null);
 
         $this->config = array_merge([
             'corePath' => $corePath,
@@ -30,5 +29,4 @@ class ImportDocs
         $this->modx->addPackage('importdocs', $this->config['modelPath']);
         $this->modx->lexicon->load('importdocs:default');
     }
-
 }

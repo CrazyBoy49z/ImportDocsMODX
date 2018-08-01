@@ -14,11 +14,10 @@ require_once MODX_CORE_PATH . 'config/' . MODX_CONFIG_KEY . '.inc.php';
 
 require_once MODX_CONNECTORS_PATH . 'index.php';
 
-$ImportDocs = $modx->getService('ImportDocs', 'ImportDocs', MODX_CORE_PATH . 'components/importdocs/model/');
+$corePath = $modx->getOption('importdocs_core_path', null, '');
+$ImportDocs = $modx->getService('ImportDocs', 'ImportDocs', $corePath . '/model/');
+
 $modx->lexicon->load('importdocs:default');
-
-
-$corePath = $modx->getOption('im.docs_core_path', null, $modx->getOption('core_path') . 'components/importdocs/');
 
 $path = $modx->getOption('processorsPath', $ImportDocs->config, $corePath . 'processors/');
 

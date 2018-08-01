@@ -9,8 +9,9 @@ abstract class ImportDocsMainController extends modExtraManagerController {
      * @return void
      */
     public function initialize() {
-        $corePath = $this->modx->getOption('im.docs_core_path', null, $this->modx->getOption('core_path') . 'components/importdocs/');
-        require_once $corePath . 'model/importdocs/importdocs.class.php';
+        $corePath = $this->modx->getOption('importdocs_core_path', null, '');
+        require_once $corePath . 'model/import';
+
         $this->ImportDocs = new ImportDocs($this->modx);
         $this->addCss($this->ImportDocs->config['cssUrl'] . 'mgr/main.css');
         $this->addJavascript($this->ImportDocs->config['jsUrl'] . 'mgr/importdocs.js');
